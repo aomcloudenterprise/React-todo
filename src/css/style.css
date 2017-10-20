@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  background: #bbe8ca;
+  font-family: 'Droid Sans';
+}
+.todo-app {
+  max-width: 500px;
+  min-height: 50px;
+  margin: 50px auto;
+  padding-bottom: 10px;
+  background: #fafafa;
+  border-radius: 5px;
+  box-shadow: 0 0 4px #666;
+}
+.header {
+  padding-top: 10px;
+  text-align: center;
+  color: #83b7d3;
+}
+.add-item-form {
+  width: 90%;
+  height: 40px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-item-input {
+  width: 80%;
+  height: 100%;
+  padding: 0 10px;
+  font-family: 'Shadows Into Light';
+  border: 1px solid lightblue;
+}
+.add-item-submit {
+  width: 20%;
+  height: 100%;
+  text-transform: uppercase;
+  background: lightblue;
+  border: 1px solid transparent;
+  font-weight: 600;
+  color: #555;
+}
+.todo-list {
+  width: 90%;
+  margin: 20px auto;
+  padding: 0;
+  list-style: none;
+}
+.todo-item {
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  font-family: 'Shadows Into Light';
+  font-size: 18px;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #999;
+}
+.delete-btn {
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 600;
+  color: crimson;
+  transition: .4s;
+}
+.delete-btn:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
