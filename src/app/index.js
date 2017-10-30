@@ -1,72 +1,68 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const App = React.createClass({
-  getInitialState: function() {
-    return {
-      items: ['React', 'more React', 'maybe React?']
+import todoItems from './TodoList';
+import TodoItem from './TodoItem';
+import AddItem from './AddItem';
+
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { todoItems }
     }
-  }, // getInitialScale
-  render: function() {
-    let items = this.state.items;
-    items = items.map((item, index) => {
-      return(<TodoItem item={item} key={index} onDelete={this.onDelete} />)
-    });
-    return(
-      <div>
-        <h1 className="header"> React Todo App </h1>
-        <AddItem onAdd={this.onAdd}/>
-        <ul className="todo-list">
-         {items}
-        </ul>
-      </div>
-    )
-  }, // render
-  onDelete: function(item) {
-    var updatedItems = this.state.items;
-    updatedItems = updatedItems.filter((val, index) => {
-      return item !== val;
-    });
-    this.setState({
-      items: updatedItems
-    });
-  }, // onDelete
-  onAdd: function(item) {
-    var updatedItems = this.state.items;
-    updatedItems.push(item);
-    this.setState({
-      items: updatedItems
-    })
-  } // onAdd
-});
 
-const AddItem = React.createClass({
-  render: function() {
-    return(
-      <form className="add-item-form" onSubmit={this.handleSubmit}>
-        <input className="add-item-input" type="text" placeholder="a new task to do..." ref="newItem" />
-        <input className="add-item-submit" type="submit" value="add" />
-      </form>
-    )
-  }, // render
-  handleSubmit: function(e) {
-    e.preventDefault();
-    this.props.onAdd(this.refs.newItem.value);
-  }
-});
+    render() {
+        let items = this.state.todoItems;
+        items = items.map((item, index) => {
+            return(<TodoItem item={item} key={index} onDelete={this.onDelete.bind(this)} onSave={this.onSave.bind(this)} toggleComplete={this.toggleComplete.bind(this)}/>)
+        });
+        return(
+            <div>
+                <h1 className="header"> React Todo App </h1>
+                <AddItem onAdd={this.onAdd.bind(this)} items={this.state.todoItems} />
+                <ul className="todo-list">
+                    {items}
+                </ul>
+            </div>
+        )
+    }
 
-const TodoItem = React.createClass({
-  render: function() {
-    return(
-      <li className="todo-item">
-        <p>{this.props.item}</p>
-        <button className="delete-btn" type="button" onClick={this.handleDelete}> x </button>
-      </li>
-    )
-  },
-  handleDelete: function() {
-    this.props.onDelete(this.props.item);
-  }
-});
+    onDelete(item) {
+        var updatedItems = this.state.todoItems;
+        updatedItems = updatedItems.filter((value, index) => {
+            return item !== value;
+        });
+        this.setState({
+            todoItems: updatedItems
+        });
+    }
+
+    onAdd(newTaskName) {
+        var updatedItems = this.state.todoItems;
+        updatedItems.push({
+            name: newTaskName,
+            completed: false
+        });
+        this.setState({
+            todoItems: updatedItems
+        })
+    }
+
+    onSave(oldItem, newName) {
+        var thisItem = this.state.todoItems.filter((item) => item === oldItem)[0];
+        thisItem.name = newName;
+        this.setState({
+            todoItems: this.state.todoItems
+        })
+    }
+
+    toggleComplete(clickedItem) {
+        var thisItem = this.state.todoItems.filter((item) => item === clickedItem)[0];
+        thisItem.completed = !thisItem.completed;
+        this.setState({
+            todoItems: this.state.todoItems
+        })
+    }
+}
 
 ReactDOM.render(<App/>, document.getElementById('app'));
