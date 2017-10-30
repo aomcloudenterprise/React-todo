@@ -1,5 +1,7 @@
 # React-todo
 
+[DEMO on Codepen](https://codepen.io/noeemi/full/ZXMOJa/)
+
 ## Running locally
 1. Make sure you have Node.js and npm installed.
 2. Clone or Download the repository
